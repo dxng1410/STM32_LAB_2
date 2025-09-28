@@ -1012,10 +1012,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8000742:	3301      	adds	r3, #1
  8000744:	4a10      	ldr	r2, [pc, #64]	; (8000788 <HAL_TIM_PeriodElapsedCallback+0x84>)
  8000746:	6013      	str	r3, [r2, #0]
-        if (segment_counter >= 50)
+        if (segment_counter >= 100)
  8000748:	4b0f      	ldr	r3, [pc, #60]	; (8000788 <HAL_TIM_PeriodElapsedCallback+0x84>)
  800074a:	681b      	ldr	r3, [r3, #0]
- 800074c:	2b31      	cmp	r3, #49	; 0x31
+ 800074c:	2b63      	cmp	r3, #99	; 0x63
  800074e:	dd13      	ble.n	8000778 <HAL_TIM_PeriodElapsedCallback+0x74>
         {
             segment_counter = 0;
