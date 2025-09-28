@@ -333,6 +333,41 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+int index_led = 0;
+int led_buffer [4] = {1, 4, 1, 0};
+void update7SEG ( int index )
+{
+	switch ( index ){
+		case 0:
+			// Display the first 7 SEG with led_buffer [0]
+            HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin | SEG_LED_2_Pin | SEG_LED_3_Pin | SEG_LED_4_Pin, GPIO_PIN_SET);
+            display7SEG(led_buffer[0]);
+            HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin, GPIO_PIN_RESET);
+            break ;
+		case 1:
+			// Display the second 7 SEG with led_buffer [1]
+			HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin | SEG_LED_2_Pin | SEG_LED_3_Pin | SEG_LED_4_Pin, GPIO_PIN_SET);
+            display7SEG(led_buffer[1]);
+            HAL_GPIO_WritePin(GPIOA, SEG_LED_2_Pin, GPIO_PIN_RESET);
+			break ;
+		case 2:
+			// Display the third 7 SEG with led_buffer [2]
+			HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin | SEG_LED_2_Pin | SEG_LED_3_Pin | SEG_LED_4_Pin, GPIO_PIN_SET);
+			display7SEG(led_buffer[2]);
+            HAL_GPIO_WritePin(GPIOA, SEG_LED_3_Pin, GPIO_PIN_RESET);
+			break ;
+		case 3:
+			// Display the forth 7 SEG with led_buffer [3]
+			HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin | SEG_LED_2_Pin | SEG_LED_3_Pin | SEG_LED_4_Pin, GPIO_PIN_SET);
+			display7SEG(led_buffer[3]);
+            HAL_GPIO_WritePin(GPIOA, SEG_LED_4_Pin, GPIO_PIN_RESET);
+			break ;
+		default :
+			break ;
+	}
+}
+
+
 int dot_blink_counter = 0;
 
 int segment_counter = 0;
@@ -356,30 +391,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         {
             segment_counter = 0;
 
-            HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin | SEG_LED_2_Pin | SEG_LED_3_Pin | SEG_LED_4_Pin, GPIO_PIN_SET);
+            update7SEG(state);
 
-            switch (state)
-            {
-                case 0:
-                    display7SEG(1);
-                    HAL_GPIO_WritePin(GPIOA, SEG_LED_1_Pin, GPIO_PIN_RESET);
-                    break;
-
-                case 1:
-                    display7SEG(2);
-                    HAL_GPIO_WritePin(GPIOA, SEG_LED_2_Pin, GPIO_PIN_RESET);
-                    break;
-
-                case 2:
-                    display7SEG(3);
-                    HAL_GPIO_WritePin(GPIOA, SEG_LED_3_Pin, GPIO_PIN_RESET);
-                    break;
-
-                case 3:
-                    display7SEG(0);
-                    HAL_GPIO_WritePin(GPIOA, SEG_LED_4_Pin, GPIO_PIN_RESET);
-                    break;
-            }
             state = (state + 1) % 4;
         }
     }
