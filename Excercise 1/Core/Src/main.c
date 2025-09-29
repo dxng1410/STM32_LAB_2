@@ -387,7 +387,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         }
 
         segment_counter++;
-        if (segment_counter >= 100)
+        if (segment_counter >= 25)
         {
             segment_counter = 0;
 
