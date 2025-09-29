@@ -361,8 +361,8 @@ int main(void)
  8000306:	dd01      	ble.n	800030c <main+0x44>
  8000308:	2300      	movs	r3, #0
  800030a:	607b      	str	r3, [r7, #4]
-		  setTimer0(10);
- 800030c:	200a      	movs	r0, #10
+		  setTimer0(15);
+ 800030c:	200f      	movs	r0, #15
  800030e:	f7ff ff1d 	bl	800014c <setTimer0>
 	  if(timer0_flag == 1){
  8000312:	e7ec      	b.n	80002ee <main+0x26>
