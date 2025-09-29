@@ -171,7 +171,7 @@ void display7SEG(int num){
   * @retval int
   */
 
-int hour = 15, minute = 8, second = 50;
+int hour = 15, minute = 8, second = 58;
 
 int main(void)
 {
@@ -222,7 +222,7 @@ int main(void)
 	  }
 	  updateClockBuffer();
 
-	  HAL_Delay (1000) ;
+	  HAL_Delay (200) ;
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -413,7 +413,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         }
 
         segment_counter++;
-        if (segment_counter >= 100)
+        if (segment_counter >= 25)
         {
             segment_counter = 0;
 
