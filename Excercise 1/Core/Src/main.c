@@ -171,7 +171,7 @@ void display7SEG(int num){
   * @retval int
   */
 
-int hour = 15, minute = 8, second = 58;
+int hour = 7, minute = 58, second = 58;
 
 int main(void)
 {
@@ -222,7 +222,7 @@ int main(void)
 	  }
 	  updateClockBuffer();
 
-	  HAL_Delay (200) ;
+	  HAL_Delay (1000) ;
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
