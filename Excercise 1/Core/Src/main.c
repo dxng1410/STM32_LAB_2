@@ -222,6 +222,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   timer0_flag = 1;
+  int counter = 0;
+  int counter1 = 0;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -240,6 +242,18 @@ int main(void)
 		  }
 		  updateClockBuffer();
 
+		  if(counter >= 4)
+		  {
+			  counter = 0;
+			  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		  }
+		  counter++;
+
+		  counter1++;
+		  if(counter1 >= 2){
+			  counter1 = 0;
+			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		  }
 		  setTimer0(250);
 	  }
     /* USER CODE BEGIN 3 */
@@ -412,9 +426,6 @@ void update7SEG ( int index )
 	}
 }
 
-
-int dot_blink_counter = 0;
-
 int segment_counter = 0;
 
 int state = 0;
@@ -426,14 +437,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     if (htim->Instance == TIM2)
     {
-        dot_blink_counter++;
-        if (dot_blink_counter >= 100)
-        {
-            dot_blink_counter = 0;
-            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-            HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-        }
-
         segment_counter++;
         if (segment_counter >= 25)
         {
