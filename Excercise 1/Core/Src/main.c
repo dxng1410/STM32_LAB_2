@@ -281,7 +281,7 @@ int main(void)
 		  updateLEDMatrix(led_matrix);
 		  led_matrix++;
 		  if(led_matrix >= 8) led_matrix = 0;
-		  setTimer0(15);
+		  setTimer0(10);
 	  }
     /* USER CODE END WHILE */
 
