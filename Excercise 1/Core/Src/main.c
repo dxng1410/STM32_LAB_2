@@ -188,7 +188,7 @@ void timer_run (){
   * @retval int
   */
 
-int hour = 22, minute = 59, second = 50;
+int hour = 22, minute = 59, second = 40;
 
 int main(void)
 {
@@ -224,10 +224,12 @@ int main(void)
   timer0_flag = 1;
   int counter = 0;
   int counter1 = 0;
+  int state = 0;
   while (1)
   {
     /* USER CODE END WHILE */
-	  if( timer0_flag == 1){
+	  if(timer0_flag == 1){
+
 		  second ++;
 		  if ( second >= 60) {
 			  second = 0;
@@ -241,6 +243,9 @@ int main(void)
 			  hour = 0;
 		  }
 		  updateClockBuffer();
+
+		  update7SEG(state);
+		  state = (state + 1) % 4;
 
 		  if(counter >= 4)
 		  {
@@ -426,27 +431,10 @@ void update7SEG ( int index )
 	}
 }
 
-int segment_counter = 0;
-
-int state = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
 	timer_run ();
-
-    if (htim->Instance == TIM2)
-    {
-        segment_counter++;
-        if (segment_counter >= 25)
-        {
-            segment_counter = 0;
-
-            update7SEG(state);
-
-            state = (state + 1) % 4;
-        }
-    }
 }
 
 /* USER CODE END 4 */
