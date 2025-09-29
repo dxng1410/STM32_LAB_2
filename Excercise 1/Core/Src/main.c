@@ -191,6 +191,24 @@ uint8_t matrix_buffer [8] = {
 		0b01000010,
 		0b10000001
 };
+void keep_buffer(){
+	uint8_t clone[8] = {
+			0b00011000,
+			0b00100100,
+			0b01100110,
+			0b01000010,
+			0b01111110,
+			0b01000010,
+			0b01000010,
+			0b10000001
+	};
+	for(int i = 0; i < 8; i++){
+		matrix_buffer[i] = clone[i];
+	}
+}
+void update_matrix_buffer(int index){
+	matrix_buffer[index]*=2;
+}
 
 void updateLEDMatrix (int index ){
 	//ENM : COL
@@ -275,12 +293,18 @@ int main(void)
   timer0_flag = 1;
 
   int led_matrix = 0;
+  int counter = 0;
   while (1)
   {
 	  if(timer0_flag == 1){
 		  updateLEDMatrix(led_matrix);
+		  update_matrix_buffer(led_matrix);
 		  led_matrix++;
-		  if(led_matrix >= 8) led_matrix = 0;
+		  if(led_matrix >= 8){
+			  led_matrix = 0;
+		  }
+		  counter++;
+		  if(counter >= 64) {keep_buffer(); counter = 0;}
 		  setTimer0(15);
 	  }
     /* USER CODE END WHILE */
